@@ -24,9 +24,10 @@ import javax.persistence.Table;
 public class Personnel implements Serializable {
 
     private Integer id;
-    private String name;
     private Integer cityCode;
-    private City city;
+    private String name;
+    private City cityByCityCode;
+    private City cityByCityCodeRelation;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,15 +40,6 @@ public class Personnel implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "`Name`", nullable = true, length = 15)
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Column(name = "`City_code`", nullable = true, scale = 0, precision = 10)
     public Integer getCityCode() {
         return this.cityCode;
@@ -57,18 +49,41 @@ public class Personnel implements Serializable {
         this.cityCode = cityCode;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "`City_code`", referencedColumnName = "`ID`", insertable = false, updatable = false)
-    public City getCity() {
-        return this.city;
+    @Column(name = "`Name`", nullable = true, length = 15)
+    public String getName() {
+        return this.name;
     }
 
-    public void setCity(City city) {
-        if(city != null) {
-            this.cityCode = city.getId();
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "`City_code`", referencedColumnName = "`ID`", insertable = false, updatable = false)
+    public City getCityByCityCode() {
+        return this.cityByCityCode;
+    }
+
+    public void setCityByCityCode(City cityByCityCode) {
+        if(cityByCityCode != null) {
+            this.cityCode = cityByCityCode.getId();
         }
 
-        this.city = city;
+        this.cityByCityCode = cityByCityCode;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "`City_code`", referencedColumnName = "`ID`", insertable = false, updatable = false)
+    public City getCityByCityCodeRelation() {
+        return this.cityByCityCodeRelation;
+    }
+
+    public void setCityByCityCodeRelation(City cityByCityCodeRelation) {
+        if(cityByCityCodeRelation != null) {
+            this.cityCode = cityByCityCodeRelation.getId();
+        }
+
+        this.cityByCityCodeRelation = cityByCityCodeRelation;
     }
 
     @Override

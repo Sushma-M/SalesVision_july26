@@ -29,7 +29,8 @@ public class City implements Serializable {
 
     private Integer id;
     private String city;
-    private List<Personnel> personnels;
+    private List<Personnel> personnelsForCityCode;
+    private List<Personnel> personnelsForCityCodeRelation;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,13 +53,23 @@ public class City implements Serializable {
     }
 
     @JsonInclude(Include.NON_EMPTY)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "city")
-    public List<Personnel> getPersonnels() {
-        return this.personnels;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "cityByCityCode")
+    public List<Personnel> getPersonnelsForCityCode() {
+        return this.personnelsForCityCode;
     }
 
-    public void setPersonnels(List<Personnel> personnels) {
-        this.personnels = personnels;
+    public void setPersonnelsForCityCode(List<Personnel> personnelsForCityCode) {
+        this.personnelsForCityCode = personnelsForCityCode;
+    }
+
+    @JsonInclude(Include.NON_EMPTY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "cityByCityCodeRelation")
+    public List<Personnel> getPersonnelsForCityCodeRelation() {
+        return this.personnelsForCityCodeRelation;
+    }
+
+    public void setPersonnelsForCityCodeRelation(List<Personnel> personnelsForCityCodeRelation) {
+        this.personnelsForCityCodeRelation = personnelsForCityCodeRelation;
     }
 
     @Override

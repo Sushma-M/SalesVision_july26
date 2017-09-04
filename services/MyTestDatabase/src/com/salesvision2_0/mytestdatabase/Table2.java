@@ -8,9 +8,11 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -21,6 +23,8 @@ import javax.persistence.Table;
 public class Table2 implements Serializable {
 
     private Integer id;
+    private Integer column2;
+    private Table1 table1;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +37,23 @@ public class Table2 implements Serializable {
         this.id = id;
     }
 
+    @Column(name = "`COLUMN2`", nullable = true, scale = 0, precision = 10)
+    public Integer getColumn2() {
+        return this.column2;
+    }
 
+    public void setColumn2(Integer column2) {
+        this.column2 = column2;
+    }
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "table2")
+    public Table1 getTable1() {
+        return this.table1;
+    }
+
+    public void setTable1(Table1 table1) {
+        this.table1 = table1;
+    }
 
     @Override
     public boolean equals(Object o) {

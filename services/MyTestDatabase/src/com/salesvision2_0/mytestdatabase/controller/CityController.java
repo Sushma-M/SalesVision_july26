@@ -51,9 +51,9 @@ public class CityController {
 	private CityService cityService;
 
 	@ApiOperation(value = "Creates a new City instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public City createCity(@RequestBody City cityInstance) {
+public City createCity(@RequestBody City cityInstance) {
 		LOGGER.debug("Create City with information: {}" , cityInstance);
 
 		cityInstance = cityService.create(cityInstance);
@@ -61,7 +61,6 @@ public class CityController {
 
 	    return cityInstance;
 	}
-
 
     @ApiOperation(value = "Returns the City instance associated with the given id.")
     @RequestMapping(value = "/{id:.+}", method = RequestMethod.GET)
@@ -150,13 +149,22 @@ public class CityController {
         return cityService.getAggregatedValues(aggregationInfo, pageable);
     }
 
-    @RequestMapping(value="/{id:.+}/personnels", method=RequestMethod.GET)
-    @ApiOperation(value = "Gets the personnels instance associated with the given id.")
+    @RequestMapping(value="/{id:.+}/personnelsForCityCode", method=RequestMethod.GET)
+    @ApiOperation(value = "Gets the personnelsForCityCode instance associated with the given id.")
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public Page<Personnel> findAssociatedPersonnels(@PathVariable("id") Integer id, Pageable pageable) {
+    public Page<Personnel> findAssociatedPersonnelsForCityCode(@PathVariable("id") Integer id, Pageable pageable) {
 
-        LOGGER.debug("Fetching all associated personnels");
-        return cityService.findAssociatedPersonnels(id, pageable);
+        LOGGER.debug("Fetching all associated personnelsForCityCode");
+        return cityService.findAssociatedPersonnelsForCityCode(id, pageable);
+    }
+
+    @RequestMapping(value="/{id:.+}/personnelsForCityCodeRelation", method=RequestMethod.GET)
+    @ApiOperation(value = "Gets the personnelsForCityCodeRelation instance associated with the given id.")
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    public Page<Personnel> findAssociatedPersonnelsForCityCodeRelation(@PathVariable("id") Integer id, Pageable pageable) {
+
+        LOGGER.debug("Fetching all associated personnelsForCityCodeRelation");
+        return cityService.findAssociatedPersonnelsForCityCodeRelation(id, pageable);
     }
 
     /**
